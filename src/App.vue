@@ -1,11 +1,14 @@
 <template>
   <router-view />
-  <router-link to="/note/1">NOTE</router-link>
 </template>
 
 <script>
 </script>
 
-<style scoped>
+<style>
 
+img {
+  width: 20px;
+  height: 20px;
+}
 </style>

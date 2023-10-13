@@ -2,13 +2,16 @@
   <teleport to="body">
     <div class="modal-overlay">
       <div class="modal">
+        <button class="modal-close" @click="$emit('closeModal')"><img src="../../assets/modal-close.svg"
+                                                                      alt="modal-close" />
+        </button>
         <slot></slot>
       </div>
     </div>
   </teleport>
 </template>
 
-<style>
+<style scoped>
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -26,5 +29,21 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
 }
 </style>
