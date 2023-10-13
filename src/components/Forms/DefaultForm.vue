@@ -14,7 +14,7 @@ import { reactive } from "vue";
 
 export default {
   setup() {
-    const inputValue = reactive({ header: "", description: "", type: "default" });
+    const inputValue = reactive({ header: "", description: "", TYPE: "default" });
 
 
     return { inputValue };

@@ -1,7 +1,7 @@
 {
   "name": "my-notion-tf",
   "private": true,
-  "version": "0.0.0",
+  "author": "A-A-21",
   "type": "module",
   "scripts": {
     "dev": "vite",

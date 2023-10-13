@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home-page">
     <button @click="openModal">Добавить</button>
     <select v-model="currentType">
       <option v-for="(key, value) in formsList" :value="value">{{ value }}</option>
@@ -7,29 +7,30 @@
     <BaseModal v-if="showModal" @closeModal="closeModal">
       <component @submitHandler="submitHandler" :is="formsList[currentType]"></component>
     </BaseModal>
+    <NoteList :notes="notes" />
   </div>
 </template>
 
 <script>
 import BaseModal from "../../components/BaseModal/BaseModal.vue";
-import { ref, defineComponent, onMounted } from "vue";
+import { ref, defineComponent, onMounted, onUpdated } from "vue";
 import CheckboxForm from "../../components/Forms/CheckboxForm.vue";
 import ImageForm from "../../components/Forms/ImageForm.vue";
 import DefaultForm from "../../components/Forms/DefaultForm.vue";
+import NoteList from "../../components/NoteList/NoteList.vue";
 
 export default defineComponent({
-  components: { DefaultForm, ImageForm, CheckboxForm, BaseModal },
+  components: { NoteList, DefaultForm, ImageForm, CheckboxForm, BaseModal },
   setup() {
-    const notes = ref(null);
+    const notes = ref([]);
     const showModal = ref(false);
     const currentType = ref("default");
     const formsList = { "default": DefaultForm, "image": ImageForm, "checkbox": CheckboxForm };
 
     onMounted(() => {
       const notedFromLS = localStorage.getItem("notes");
-      notes.value = notedFromLS ? JSON.parse(notedFromLS) : [];
+      if (notedFromLS) notes.value = JSON.parse(notedFromLS);
     });
-
     const submitHandler = (inputValue) => {
       notes.value.push(inputValue);
       localStorage.setItem("notes", JSON.stringify(notes.value));
@@ -44,7 +45,15 @@ export default defineComponent({
     };
 
 
-    return { showModal, openModal, closeModal, currentType, formsList, submitHandler };
+    return { showModal, openModal, closeModal, currentType, formsList, submitHandler, notes };
   }
 });
 </script>
+
+<style lang="scss" scoped>
+.home-page {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+</style>
